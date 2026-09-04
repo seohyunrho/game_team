@@ -96,6 +96,17 @@ h1 span {
     font-size: 19px;
 }
 
+#timer.timer--critical {
+    color: #d62828;
+    animation: timer-blink 0.7s step-end infinite;
+}
+
+@keyframes timer-blink {
+    50% {
+        opacity: 0.25;
+    }
+}
+
 .target-panel {
     display: grid;
     min-height: 310px;
