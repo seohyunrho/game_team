@@ -12,11 +12,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Game</title>
     <link rel="stylesheet" href="exam4.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Jua&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <main class="game-shell">
         <header class="game-header">
-            <p class="eyebrow">REACTION / 01</p>
+            <div class="pixel-lights" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <h1>TYPE<span>RUSH</span></h1>
             <p class="instruction">화면의 문자를 보고 같은 키를 입력하세요.</p>
         </header>
@@ -46,6 +55,24 @@
 
         <footer class="game-footer">CAPS &amp; lowercase are different</footer>
     </main>
+
+    <div id="resultModal" class="result-modal" hidden>
+        <div class="result-modal__backdrop"></div>
+
+        <section class="result-modal__content" role="dialog" aria-modal="true">
+            <p class="result-modal__label">GAME OVER</p>
+            <h2>최종 점수</h2>
+            <strong id="finalScore">0점</strong>
+
+            <button
+                class="button button--primary"
+                type="button"
+                onclick="closeResultModal()"
+            >
+                다시 시작
+            </button>
+        </section>
+    </div>
 
     <script src="exam4.js"></script>
 </body>
