@@ -8,6 +8,7 @@ let isGameRunning = false; // 게임이 실행 중인지 확인하는 변수
 const targetCharElement = document.getElementById('targetChar');
 const scoreElement = document.getElementById('score');
 const timerElement = document.getElementById('timer');
+const feedbackElement = document.getElementById('feedback');
 const finalScoreElement = document.getElementById('finalScore');
 const resultModal = document.getElementById('resultModal');
 
@@ -35,7 +36,9 @@ function checkInput(event) {
     }
 
     // 입력 문자가 타겟 문자와 일치하면 점수 증가, 아니면 점수 감소
-    score += (inputChar === targetCharElement.innerText) ? 10 : -5;
+    const isCorrect = inputChar === targetCharElement.innerText;
+    score += isCorrect ? 10 : -5;
+    feedbackElement.innerText = isCorrect ? '' : '분발하세요!';
 
     // 업데이트된 점수와 새로운 타겟 문자 표시
     scoreElement.innerText = `점수: ${score}`;
