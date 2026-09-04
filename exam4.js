@@ -9,6 +9,8 @@ const targetCharElement = document.getElementById('targetChar');
 const scoreElement = document.getElementById('score');
 const timerElement = document.getElementById('timer');
 const feedbackElement = document.getElementById('feedback');
+const finalScoreElement = document.getElementById('finalScore');
+const resultModal = document.getElementById('resultModal');
 
 // 점수 계산에서 제외할 키 리스트
 const excludedKeys = ['Shift', 'CapsLock'];
@@ -57,11 +59,15 @@ function updateTimer() {
 // 게임을 종료하고 필요한 정리 작업을 수행하는 함수
 function endGame() {
     clearInterval(gameInterval);
-    targetCharElement.innerText = ''; // 타겟 문자 제거
+
+    targetCharElement.innerText = '';
     timerElement.innerText = `시간 초과! 최종 점수: ${score}`;
     timerElement.classList.remove('timer--critical');
     document.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
     isGameRunning = false; // 게임 실행 상태를 종료로 설정
+
+    finalScoreElement.innerText = `${score}점`;
+    resultModal.hidden = false;
 }
 
 // 게임을 초기화하고 시작하는 함수
@@ -102,3 +108,9 @@ function initGame() {
 
 // 게임 초기화 함수 호출
 initGame();
+
+// 결과 모달 닫기 함수
+function closeResultModal() {
+    resultModal.hidden = true;
+    resetGame();
+}

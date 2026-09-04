@@ -13,24 +13,119 @@
 }
 
 body {
+    position: relative;
     min-height: 100vh;
     margin: 0;
-    color: var(--ink);
-    background-color: var(--night);
-    background-image: linear-gradient(rgba(23, 107, 76, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 107, 76, 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
-    font-family: "Trebuchet MS", "Malgun Gothic", sans-serif;
+    overflow-x: hidden;
+    color: #f4ffe9;
+    background:
+        radial-gradient(circle at 50% 12%, rgba(57, 184, 106, 0.1), transparent 34%),
+        linear-gradient(180deg, #11152a 0%, #080b16 65%, #05070c 100%);
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+}
+
+body::before {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 36px 36px;
+    content: "";
+    mask-image: linear-gradient(to bottom, black, transparent 82%);
+    pointer-events: none;
+}
+
+body::after {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(circle at 12% 25%, #ffdb4d 0 2px, transparent 3px),
+        radial-gradient(circle at 86% 18%, #39b86a 0 2px, transparent 3px),
+        radial-gradient(circle at 78% 76%, #ff6b8a 0 2px, transparent 3px),
+        radial-gradient(circle at 20% 82%, #62b6ff 0 2px, transparent 3px);
+    content: "";
+    opacity: 0.8;
+    pointer-events: none;
 }
 
 .game-shell {
+    position: relative;
+    z-index: 1;
     width: min(100% - 40px, 720px);
     margin: 0 auto;
     padding: 72px 0 28px;
 }
 
+.game-shell::before,
+.game-shell::after {
+    position: fixed;
+    top: 50%;
+    color: rgba(255, 255, 255, 0.16);
+    font-size: 72px;
+    filter: drop-shadow(0 0 12px rgba(57, 184, 106, 0.45));
+    pointer-events: none;
+}
+
+.game-shell::before {
+    left: max(18px, calc(50% - 520px));
+    content: "\01F579\FE0F";
+    transform: rotate(-12deg);
+}
+
+.game-shell::after {
+    right: max(18px, calc(50% - 520px));
+    content: "\01F47E";
+    transform: rotate(12deg);
+}
+
 .game-header {
+    position: relative;
     margin-bottom: 36px;
+    text-align: center;
+}
+
+.pixel-lights {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.pixel-lights span {
+    width: 10px;
+    height: 10px;
+    background: #ffdb4d;
+    box-shadow: 0 0 10px #ffdb4d;
+}
+
+.pixel-lights span:nth-child(2) {
+    background: #ff526d;
+    box-shadow: 0 0 10px #ff526d;
+}
+
+.pixel-lights span:nth-child(3) {
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+}
+
+.pixel-lights span:nth-child(4) {
+    background: #62b6ff;
+    box-shadow: 0 0 10px #62b6ff;
+}
+
+.game-header::before {
+    display: block;
+    margin-bottom: 12px;
+    color: #ffdb4d;
+    content: "★  INSERT COIN  ★";
+    font-family: "Fredoka", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 5px rgba(255, 219, 77, 0.45);
 }
 
 .eyebrow,
@@ -39,20 +134,26 @@ body {
 .game-footer {
     color: var(--muted);
     font-size: 11px;
-    font-weight: bold;
+    font-weight: 400;
     letter-spacing: 0.18em;
 }
 
 .eyebrow {
     margin: 0 0 14px;
-    color: var(--forest);
+    color: #8be3a8;
 }
 
 h1 {
     margin: 0;
+    color: #f4ffe9;
     font-size: 92px;
     line-height: 0.9;
     letter-spacing: 0.02em;
+    text-shadow:
+        0 0 3px rgba(255, 255, 255, 0.8),
+        0 0 8px rgba(57, 184, 106, 0.55),
+        0 0 14px rgba(57, 184, 106, 0.3),
+        4px 4px 0 var(--forest);
 }
 
 h1 span {
@@ -61,21 +162,27 @@ h1 span {
 
 .instruction {
     margin: 22px 0 0;
-    color: var(--muted);
+    color: #b7c8d8;
     font-size: 15px;
 }
 
 .game-board {
+    position: relative;
     overflow: hidden;
-    border: 1px solid var(--line);
-    background: var(--panel);
-    box-shadow: 12px 12px 0 rgba(57, 184, 106, 0.28);
+    border: 12px solid var(--forest);
+    border-radius: 24px;
+    background: #0b1e17;
+    box-shadow:
+        0 0 0 4px #10251d,
+        0 14px 0 #08130f,
+        0 20px 28px rgba(24, 49, 39, 0.28);
 }
 
 .status-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 3px solid var(--green);
+    background: #183127;
 }
 
 .status-item {
@@ -88,12 +195,20 @@ h1 span {
 }
 
 .status-item--timer {
-    border-left: 1px solid var(--line);
+    border-left: 2px solid rgba(57, 184, 106, 0.35);
+}
+
+.status-label,
+.target-label {
+    color: #8be3a8;
 }
 
 .status-item strong {
-    color: var(--ink);
-    font-size: 19px;
+    color: var(--green);
+    font-family: "Fredoka", "Jua", sans-serif;
+    font-size: 21px;
+    font-weight: 500;
+    text-shadow: 0 0 4px rgba(57, 184, 106, 0.35);
 }
 
 #timer.timer--critical {
@@ -108,16 +223,40 @@ h1 span {
 }
 
 .target-panel {
+    position: relative;
     display: grid;
     min-height: 310px;
     padding: 30px;
     align-content: center;
     justify-items: center;
-    background: radial-gradient(circle at center, rgba(57, 184, 106, 0.12), transparent 42%);
+    overflow: hidden;
+    border-radius: 10px;
+    background:
+        radial-gradient(circle at center, rgba(57, 184, 106, 0.11), transparent 48%),
+        #071810;
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.65),
+        inset 0 0 8px rgba(57, 184, 106, 0.25);
+}
+
+.target-panel::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.018) 0,
+        rgba(255, 255, 255, 0.018) 1px,
+        transparent 1px,
+        transparent 5px
+    );
+    content: "";
+    pointer-events: none;
 }
 
 .target-label {
-    color: var(--forest);
+    position: relative;
+    z-index: 2;
 }
 
 #feedback {
@@ -129,30 +268,41 @@ h1 span {
 }
 
 #targetChar {
+    position: relative;
+    z-index: 2;
     min-height: 150px;
     color: var(--green);
-    font-family: Georgia, serif;
+    font-family: "Fredoka", "Jua", sans-serif;
     font-size: 150px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 1;
-    text-shadow: 4px 4px 0 rgba(23, 107, 76, 0.18);
+    text-shadow:
+        0 0 5px rgba(57, 184, 106, 0.5),
+        3px 3px 0 rgba(23, 107, 76, 0.4);
+    animation: crt-flicker 3.2s infinite;
 }
 
 .controls {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
     padding: 24px;
-    border-top: 1px solid var(--line);
+    border-top: 3px solid #0b1e17;
+    background: #183127;
 }
 
 .button {
-    min-height: 48px;
+    position: relative;
+    min-width: 120px;
+    min-height: 60px;
     padding: 0 22px;
     border: 1px solid transparent;
     font: inherit;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 400;
     cursor: pointer;
+    border-radius: 50%;
     transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
@@ -166,32 +316,139 @@ h1 span {
 }
 
 .button--primary {
-    background: var(--green);
+    border: 4px solid #ff526d;
+    background: #e93555;
     color: #ffffff;
-    box-shadow: 4px 4px 0 var(--forest);
+    box-shadow:
+        0 8px 0 #8e1d35,
+        0 0 18px rgba(255, 82, 109, 0.55);
 }
 
 .button--primary:hover {
-    box-shadow: 6px 6px 0 var(--forest);
+    background: #ff526d;
+    box-shadow:
+        0 5px 0 #8e1d35,
+        0 0 24px rgba(255, 82, 109, 0.75);
 }
 
 .button--secondary {
-    border-color: var(--line);
-    background: transparent;
-    color: var(--ink);
+    border: 4px solid #ffdb4d;
+    background: #c99e16;
+    color: #fff9c4;
+    box-shadow: 0 6px 0 #80620b;
 }
 
 .button--secondary:hover {
-    border-color: var(--forest);
-    background: #edf6ee;
+    border-color: #fff08a;
+    background: #e2b82b;
 }
 
 .game-footer {
     margin-top: 30px;
+    color: #778a9d;
     text-align: right;
 }
 
+.result-modal[hidden] {
+    display: none;
+}
+
+.result-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.result-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(24, 49, 39, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.result-modal__content {
+    position: relative;
+    width: min(100%, 380px);
+    padding: 42px 32px 32px;
+    overflow: hidden;
+    border: 8px solid var(--forest);
+    border-radius: 18px;
+    background: #0b1e17;
+    box-shadow:
+        0 0 0 3px #10251d,
+        0 10px 0 #08130f;
+    text-align: center;
+    animation: modal-in 180ms ease-out;
+}
+
+.result-modal__content::before {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.018) 0,
+        rgba(255, 255, 255, 0.018) 1px,
+        transparent 1px,
+        transparent 5px
+    );
+    content: "";
+    pointer-events: none;
+}
+
+.result-modal h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 18px;
+    color: #ffffff;
+    font-family: "Jua", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#finalScore {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 30px;
+    color: var(--green);
+    font-family: "Fredoka", "Jua", sans-serif;
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 1;
+    text-shadow: 0 0 6px rgba(57, 184, 106, 0.5);
+}
+
+.result-modal .button {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    border-radius: 14px;
+    font-family: "Jua", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 @media (max-width: 520px) {
+    .game-shell::before,
+    .game-shell::after {
+        display: none;
+    }
+
     .game-shell {
         width: min(100% - 28px, 720px);
         padding-top: 40px;
@@ -212,6 +469,7 @@ h1 span {
     #targetChar {
         min-height: 120px;
         font-size: 120px;
+        text-shadow: 2px 2px 0 rgba(23, 107, 76, 0.12);
     }
 
     .controls {
@@ -220,5 +478,29 @@ h1 span {
 
     .button {
         width: 100%;
+    }
+}
+
+h1,
+.status-item strong,
+#targetChar,
+#finalScore {
+    font-family: "Fredoka", "Jua", sans-serif;
+    font-weight: 500;
+}
+
+@keyframes crt-flicker {
+    0%,
+    18%,
+    22%,
+    63%,
+    70%,
+    100% {
+        opacity: 1;
+    }
+
+    20%,
+    65% {
+        opacity: 0.82;
     }
 }
