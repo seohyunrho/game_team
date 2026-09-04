@@ -4,7 +4,7 @@ let timeLeft = 20;
 let gameInterval;
 let isGameRunning = false; // 게임이 실행 중인지 확인하는 변수
 
-// DOM 요소 참조
+// DOM 요소 참조g
 const targetCharElement = document.getElementById('targetChar');
 const scoreElement = document.getElementById('score');
 const timerElement = document.getElementById('timer');
@@ -46,6 +46,7 @@ function checkInput(event) {
 function updateTimer() {
     timeLeft--;
     timerElement.innerText = `남은 시간: ${timeLeft}`;
+    timerElement.classList.toggle('timer--critical', timeLeft < 6);
 
     if (timeLeft <= 0) {
         endGame();
@@ -58,9 +59,9 @@ function endGame() {
 
     targetCharElement.innerText = '';
     timerElement.innerText = `시간 초과! 최종 점수: ${score}`;
-
-    document.removeEventListener('keydown', checkInput);
-    isGameRunning = false;
+    timerElement.classList.remove('timer--critical');
+    document.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
+    isGameRunning = false; // 게임 실행 상태를 종료로 설정
 
     finalScoreElement.innerText = `${score}점`;
     resultModal.hidden = false;
@@ -75,6 +76,7 @@ function startGame() {
     timeLeft = 20;
     scoreElement.innerText = `점수: ${score}`;
     timerElement.innerText = `남은 시간: ${timeLeft}`;
+    timerElement.classList.remove('timer--critical');
     setNewTargetChar(); // 첫 번째 타겟 문자 설정
 
     gameInterval = setInterval(updateTimer, 1000); // 1초마다 타이머 업데이트
@@ -88,6 +90,7 @@ function resetGame() {
     timeLeft = 20;
     scoreElement.innerText = '점수: 0';
     timerElement.innerText = '남은 시간: 20';
+    timerElement.classList.remove('timer--critical');
     targetCharElement.innerText = ''; // 타겟 문자 초기화
     document.removeEventListener('keydown', checkInput); // 키 입력 이벤트 제거
     isGameRunning = false; // 게임 실행 상태를 종료로 설정

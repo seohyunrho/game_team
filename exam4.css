@@ -211,6 +211,17 @@ h1 span {
     text-shadow: 0 0 4px rgba(57, 184, 106, 0.35);
 }
 
+#timer.timer--critical {
+    color: #d62828;
+    animation: timer-blink 0.7s step-end infinite;
+}
+
+@keyframes timer-blink {
+    50% {
+        opacity: 0.25;
+    }
+}
+
 .target-panel {
     position: relative;
     display: grid;
