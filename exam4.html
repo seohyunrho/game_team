@@ -1,0 +1,52 @@
+<!-- 
+    1. 아래 게임의 문제점을 발견하고, 개선점을 제시하세요. 정답은 없습니다. 
+    2. 디자인을 개선해보세요.
+    3. css, js 파일을 외부로 빼서 따로 관리할 수 있도록
+    4. 레포 따로 하나 파기
+    5. 배포해보기 (github로)
+ -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+    <link rel="stylesheet" href="exam4.css">
+</head>
+<body>
+    <main class="game-shell">
+        <header class="game-header">
+            <p class="eyebrow">REACTION / 01</p>
+            <h1>TYPE<span>RUSH</span></h1>
+            <p class="instruction">화면의 문자를 보고 같은 키를 입력하세요.</p>
+        </header>
+
+        <section class="game-board" aria-label="타이핑 게임">
+            <div class="status-row">
+                <div class="status-item">
+                    <span class="status-label">SCORE</span>
+                    <strong id="score">점수: 0</strong>
+                </div>
+                <div class="status-item status-item--timer">
+                    <span class="status-label">TIME LEFT</span>
+                    <strong id="timer">남은 시간: 20</strong>
+                </div>
+            </div>
+
+            <div class="target-panel">
+                <span class="target-label">TYPE THIS</span>
+                <div id="targetChar" aria-live="polite"></div>
+            </div>
+
+            <div class="controls">
+                <button id="startButton" class="button button--primary" onclick="startGame()">Start game</button>
+                <button id="resetButton" class="button button--secondary" onclick="resetGame()">Reset</button>
+            </div>
+        </section>
+
+        <footer class="game-footer">CAPS &amp; lowercase are different</footer>
+    </main>
+
+    <script src="exam4.js"></script>
+</body>
+</html>
